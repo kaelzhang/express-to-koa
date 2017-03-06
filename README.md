@@ -14,7 +14,9 @@
 
 # express-to-koa
 
-<!-- description -->
+Use express middlewares in Koa2, the one that really works.
+
+- fixes the unexpected 404 status
 
 ## Install
 
@@ -25,7 +27,9 @@ $ npm install express-to-koa --save
 ## Usage
 
 ```js
-const express_to_koa = require('express-to-koa')
+const e2k = require('express-to-koa')
+const app = new Koa()
+app.use(e2k(expressMiddleware))
 ```
 
 ## License
