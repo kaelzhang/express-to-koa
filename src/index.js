@@ -1,5 +1,3 @@
-// const delegate = require('delegates')
-
 const properties = {
   statusCode: {
     get () {
@@ -14,6 +12,8 @@ const properties = {
 
   end: {
     value (...args) {
+      // Koa and Koa2 set the statusCode to `404` by default.
+      // So we must do something as well as `ctx.body = body`.
       if (!this._explicitStatus) {
         // set to _response.statusCode
         this.statusCode = 200
@@ -23,27 +23,6 @@ const properties = {
     }
   }
 }
-
-// delegate(proto, '_response')
-// .method('on')
-// .method('emit')
-// .method('addTrailers')
-// // .method('end')
-// .getter('finished')
-// .method('getHeader')
-// .method('getHeaderNames')
-// .method('getHeaders')
-// .method('hasHeader')
-// .getter('headerSent')
-// .method('removeHeader')
-// .method('sendDate')
-// .method('sentHeader')
-// .method('setTimeout')
-// // .access('statusCode')
-// // .access('statusMessage')
-// .method('write')
-// .method('writeContinue')
-// .method('writeHead')
 
 
 function makeResponse (res) {

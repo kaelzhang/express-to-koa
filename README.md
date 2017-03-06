@@ -16,7 +16,7 @@
 
 Use express middlewares in Koa2, the one that really works.
 
-- fixes the unexpected 404 status
+- Handle koa2 http status code.
 
 ## Install
 
