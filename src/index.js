@@ -12,7 +12,6 @@ const properties = {
 
   writeHead: {
     value (...args) {
-      console.log('write head')
       this._explicitStatus = true
       this._response.writeHead(...args)
     }
