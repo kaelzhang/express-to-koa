@@ -1,9 +1,8 @@
 [![Build Status](https://travis-ci.org/kaelzhang/express-to-koa.svg?branch=master)](https://travis-ci.org/kaelzhang/express-to-koa)
+[![NPM version](https://img.shields.io/npm/v/express-to-koa.svg)](https://www.npmjs.com/package/express-to-koa)
 <!-- optional appveyor tst
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/kaelzhang/express-to-koa?branch=master&svg=true)](https://ci.appveyor.com/project/kaelzhang/express-to-koa)
 -->
-[![NPM version](https://img.shields.io/npm/v/express-to-koa.svg)](https://www.npmjs.com/package/express-to-koa)
-
 <!-- optional npm downloads
 [![npm module downloads per month](http://img.shields.io/npm/dm/express-to-koa.svg)](https://www.npmjs.org/package/express-to-koa)
 -->
@@ -21,6 +20,8 @@ Use express middlewares in Koa2 (not support koa1 for now), the one that really 
 
 ```js
 const e2k = require('express-to-koa')
+
+// Some express middleware
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath,
   quiet: true
