@@ -45,6 +45,7 @@ So, it is a good practice to write framework-agnostic middlewares or libraries.
 
 - [webpack-dev-middleware](https://www.npmjs.com/package/webpack-dev-middleware)
 - [webpack-hot-middleware](https://www.npmjs.com/package/webpack-hot-middleware)
+- Other middlewares which are waiting for you to add to the README. Any contributions are welcome.
 
 ## License
 

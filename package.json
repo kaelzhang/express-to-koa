@@ -1,6 +1,6 @@
 {
   "name": "express-to-koa",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Use express middlewares in Koa2, the one that really works.",
   "main": "lib/index.js",
   "scripts": {
