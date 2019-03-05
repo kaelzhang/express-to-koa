@@ -1,22 +1,4 @@
 const properties = {
-  statusCode: {
-    get () {
-      return this._response.statusCode
-    },
-
-    set (code) {
-      this._explicitStatus = true
-      this._response.statusCode = code
-    }
-  },
-
-  writeHead: {
-    value (...args) {
-      this._explicitStatus = true
-      this._response.writeHead(...args)
-    }
-  },
-
   write: {
     value (...args) {
       // Koa and Koa2 set the statusCode to `404` by default.
