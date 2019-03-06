@@ -1,6 +1,6 @@
 {
-  "name": "express-to-koa",
-  "version": "1.0.6",
+  "name": "e2k",
+  "version": "1.0.0",
   "description": "Use express middlewares in Koa2, the one that really works.",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kaelzhang/express-to-koa.git"
+    "url": "git://github.com/cuiyongjian/express-to-koa.git"
   },
   "keywords": [
     "express-to-koa",
@@ -24,10 +24,10 @@
   "engines": {
     "node": ">=4"
   },
-  "author": "kaelzhang",
+  "author": "sheldoncui",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kaelzhang/express-to-koa/issues"
+    "url": "https://github.com/cuiyongjian/express-to-koa/issues"
   },
   "ava": {
     "require": "babel-register",
