@@ -1,5 +1,5 @@
 const test = require('ava')
-const e2k = require('..')
+const e2k = require('../src')
 const Koa = require('koa')
 const Router = require('koa-router')
 const axios = require('axios')
@@ -24,6 +24,13 @@ const ROUTES = [
   ['post', '/post2', (req, res, next) => {
     res.statusCode = 201
     res.end('post2')
+  }],
+
+  ['post', '/post3', (req, res, next) => {
+    // #1
+    const code = res.statusCode
+    res.statusCode = code || 200
+    res.end('post3')
   }]
 ]
 
@@ -51,7 +58,8 @@ const CASES = [
   ['get', '/get', 'get'],
   ['get', '/get2', 'get2'],
   ['post', '/post', 'post'],
-  ['post', '/post2', 'post2', 201]
+  ['post', '/post2', 'post2', 201],
+  ['post', '/post3', 'post3', 200]
 ]
 
 CASES.forEach((c) => {
@@ -60,13 +68,13 @@ CASES.forEach((c) => {
       method,
       pathname,
       body,
-      code
+      code = 200
     ] = c
 
     request(method, pathname)
     .then(({data, status}) => {
       t.is(data, body)
-      t.is(status, code || 200)
+      t.is(status, code)
       t.end()
     })
   })

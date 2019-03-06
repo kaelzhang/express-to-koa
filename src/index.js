@@ -1,7 +1,9 @@
 const properties = {
   statusCode: {
     get () {
-      return this._response.statusCode
+      return this._explicitStatus
+        ? this._response.statusCode
+        : undefined
     },
 
     set (code) {
@@ -45,7 +47,8 @@ const properties = {
 function makeResponse (res) {
   return Object.create({
     __proto__: res,
-    _response: res
+    _response: res,
+    _explicitStatus: false
   }, properties)
 }
 
