@@ -1,6 +1,8 @@
 # babel dist
 /lib
 
+package-lock.json
+
 # Numerous always-ignore extensions
 *.bak
 *.patch
