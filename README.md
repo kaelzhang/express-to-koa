@@ -50,6 +50,24 @@ So, it is a good practice to write framework-agnostic middlewares or libraries.
 - [webpack-hot-middleware](https://www.npmjs.com/package/webpack-hot-middleware)
 - Other middlewares which are waiting for you to add to the README. Any contributions are welcome.
 
+## e2k.CONTEXT
+
+```js
+const {
+  CONTEXT
+} = require('express-to-koa')
+
+app.use(e2k(
+  (req, res) => {
+    // We can access koa context by
+    req[CONTEXT]
+
+    // Or
+    res[CONTEXT]
+  }
+))
+```
+
 ## License
 
 MIT

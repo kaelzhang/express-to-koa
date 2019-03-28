@@ -1,4 +1,10 @@
 const supertest = require('supertest')
+const {CONTEXT} = require('../src')
+
+const wrapKoa = c => {
+  c.koa = true
+  return c
+}
 
 const ROUTES = [
   ['get', '/get', (req, res, next) => {
@@ -40,7 +46,20 @@ const ROUTES = [
 
   ['post', '/post6', (req, res) => {
     res.end(String(res.statusCode))
-  }]
+  }],
+
+  ['post', '/post7', (req, res, next) => {
+    res.statusCode = 201
+    next()
+  }, (req, res) => {
+    res.end(String(res.statusCode))
+  }],
+
+  wrapKoa(
+    ['post', '/post/:lang', (req, res) => {
+      res.end(JSON.stringify(req[CONTEXT].params))
+    }]
+  )
 ]
 
 
@@ -52,14 +71,26 @@ const CASES = [
   ['post', '/post3', 'post3', 200],
   ['post', '/post4', 'post4', 201],
   ['post', '/post5', 'Internal Server Error', 500],
-  ['post', '/post6', '200', 200]
+  ['post', '/post6', '200', 200],
+  ['post', '/post7', '201', 201],
+  wrapKoa(
+    ['post', '/post/en', '{"lang":"en"}', 200]
+  )
 ]
 
 module.exports = (test, prefix, router, app, wrapper) => {
   let request
 
+  const shouldSkip = c => c.koa && prefix === 'express'
+
   test.before(t => {
-    ROUTES.forEach(([method, pathname, ...middlewares]) => {
+    ROUTES.forEach(c => {
+      if (shouldSkip(c)) {
+        return
+      }
+
+      const [method, pathname, ...middlewares] = c
+
       middlewares.forEach(middleware => {
         router[method](
           pathname,
@@ -73,7 +104,11 @@ module.exports = (test, prefix, router, app, wrapper) => {
     request = supertest(app)
   })
 
-  CASES.forEach((c) => {
+  CASES.forEach(c => {
+    if (shouldSkip(c)) {
+      return
+    }
+
     test(`${prefix}: ${c.join(', ')}`, async t => {
       const [
         method,
