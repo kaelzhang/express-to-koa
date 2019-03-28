@@ -1,6 +1,13 @@
 # babel dist
 /lib
 
+# coverage
+.nyc_output
+*.lcov
+
+# node
+*.tgz
+
 package-lock.json
 
 # Numerous always-ignore extensions

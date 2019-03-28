@@ -1,13 +1,17 @@
 {
   "name": "express-to-koa",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Use express middlewares in Koa2, the one that really works.",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "test": "npm run build && node ./node_modules/.bin/ava --verbose --timeout=10s",
+    "test": "npm run build && nyc ava --verbose --timeout=10s test/*.test.js",
+    "posttest": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "prepublishOnly": "npm run build"
   },
+  "files": [
+    "lib/"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/kaelzhang/express-to-koa.git"
@@ -19,7 +23,8 @@
     "koa2",
     "middleware",
     "converter",
-    "connect"
+    "connect",
+    "framework"
   ],
   "engines": {
     "node": ">=4"
@@ -36,11 +41,14 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/preset-env": "^7.3.4",
-    "@babel/register": "^7.0.0",
-    "ava": "^1.3.1",
-    "axios": "^0.18.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/register": "^7.4.0",
+    "ava": "^1.4.1",
+    "codecov": "^3.2.0",
+    "express": "^4.16.4",
     "koa": "^2.7.0",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "nyc": "^13.3.0",
+    "supertest": "^4.0.2"
   }
 }

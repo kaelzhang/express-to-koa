@@ -1,40 +1,33 @@
+const STATUS_SET_EXPLICITLY = Symbol('is-status-set-explicitly')
+
 const properties = {
   statusCode: {
     get () {
-      return this._explicitStatus
+      return this[STATUS_SET_EXPLICITLY]
         ? this._response.statusCode
-        : undefined
+        // The default statusCode of express is `200`
+        : 200
     },
 
     set (code) {
-      this._explicitStatus = true
+      this[STATUS_SET_EXPLICITLY] = true
       this._response.statusCode = code
     }
   },
 
   writeHead: {
     value (...args) {
-      this._explicitStatus = true
+      this[STATUS_SET_EXPLICITLY] = true
       this._response.writeHead(...args)
-    }
-  },
-
-  write: {
-    value (...args) {
-      // Koa and Koa2 set the statusCode to `404` by default.
-      // So we must do something as well as `ctx.body = body`.
-      if (!this._explicitStatus) {
-        // set to _response.statusCode
-        this.statusCode = 200
-      }
-
-      return this._response.write(...args)
     }
   },
 
   end: {
     value (...args) {
-      if (!this._explicitStatus) {
+      // Koa and Koa2 set the statusCode to `404` by default.
+      // So we must do something as well as `ctx.body = body`.
+      if (!this[STATUS_SET_EXPLICITLY]) {
+        // set to _response.statusCode
         this.statusCode = 200
       }
 
@@ -48,7 +41,7 @@ function makeResponse (res) {
   return Object.create({
     __proto__: res,
     _response: res,
-    _explicitStatus: false
+    [STATUS_SET_EXPLICITLY]: false
   }, properties)
 }
 

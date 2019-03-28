@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/kaelzhang/express-to-koa.svg?branch=master)](https://travis-ci.org/kaelzhang/express-to-koa)
-[![NPM version](https://img.shields.io/npm/v/express-to-koa.svg)](https://www.npmjs.com/package/express-to-koa)
+[![Coverage](https://codecov.io/gh/kaelzhang/express-to-koa/branch/master/graph/badge.svg)](https://codecov.io/gh/kaelzhang/express-to-koa)
+
 <!-- optional appveyor tst
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/kaelzhang/express-to-koa?branch=master&svg=true)](https://ci.appveyor.com/project/kaelzhang/express-to-koa)
 -->
