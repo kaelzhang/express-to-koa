@@ -34,7 +34,9 @@ app.use(e2k(devMiddleware))
 
 ## What Kind of Express Middlewares are Supported?
 
-TL;NR
+NEARLY **ALL** express middlewares built with best practices.
+
+**TL;NR**
 
 `express-to-koa` does not support all arbitrary express middlewares, but only for those who only uses **Express-Independent** APIs like `res.write` and `res.end`, i.e. the APIs that node [http.ServerResponse](https://nodejs.org/dist/latest-v7.x/docs/api/http.html#http_class_http_serverresponse) provides.
 
