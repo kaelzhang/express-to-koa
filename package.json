@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "test": "npm run build && nyc ava --verbose --timeout=10s test/*.test.js",
+    "test": "npm run build && NODE_DEBUG=express-to-koa nyc ava --verbose --timeout=10s test/*.test.js",
     "posttest": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "prepublishOnly": "npm run build"
   },

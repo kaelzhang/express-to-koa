@@ -1,4 +1,5 @@
 const supertest = require('supertest')
+const log = require('util').debuglog('express-to-koa')
 const {CONTEXT} = require('../src')
 
 const wrapKoa = c => {
@@ -59,7 +60,11 @@ const ROUTES = [
     ['post', '/post/:lang', (req, res) => {
       res.end(JSON.stringify(req[CONTEXT].params))
     }]
-  )
+  ),
+
+  ['use',, (req, res) => {
+    res.end('middleware')
+  }]
 ]
 
 
@@ -75,10 +80,11 @@ const CASES = [
   ['post', '/post7', '201', 201],
   wrapKoa(
     ['post', '/post/en', '{"lang":"en"}', 200]
-  )
+  ),
+  ['put', '/not-defined', 'middleware', 200]
 ]
 
-module.exports = (test, prefix, router, app, wrapper) => {
+module.exports = (test, prefix, app, router, callback, wrapper) => {
   let request
 
   const shouldSkip = c => c.koa && prefix === 'express'
@@ -92,16 +98,20 @@ module.exports = (test, prefix, router, app, wrapper) => {
       const [method, pathname, ...middlewares] = c
 
       middlewares.forEach(middleware => {
-        router[method](
-          pathname,
-          wrapper
-            ? wrapper(middleware)
-            : middleware
-        )
+        const wrapped = wrapper
+          ? wrapper(middleware)
+          : middleware
+
+        if (method === 'use') {
+          app.use(wrapped)
+          return
+        }
+
+        router[method](pathname, wrapped)
       })
     })
 
-    request = supertest(app)
+    request = supertest(callback)
   })
 
   CASES.forEach(c => {
@@ -122,10 +132,15 @@ module.exports = (test, prefix, router, app, wrapper) => {
         text
       } = await request[method](pathname)
 
-      t.is(status, code)
-
       if (code !== 500) {
         t.is(text, body)
+      }
+
+      if (status === code) {
+        t.pass()
+      } else {
+        log('error text: %s', text)
+        t.fail('status code not match')
       }
     })
   })
