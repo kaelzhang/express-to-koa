@@ -101,6 +101,8 @@ const makeRequest = ctx => define(
 
 // We HAVE to manipulate the vanilla OutGoing response,
 // otherwise, if the response is piped, the request will stuck and hang
+
+// Further research is required to figure out why.
 const makeResponse = (ctx, resolve) => define(
   ctx.res,
   RESPONSE_PROPERTIES(ctx, resolve)
