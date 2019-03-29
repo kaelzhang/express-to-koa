@@ -16,6 +16,7 @@
 Use express middlewares in Koa2 (not support koa1 for now), the one that really works.
 
 - Handle koa2 http status code, which fixes the common issue that we always get 404 with [koa-connect](https://www.npmjs.com/package/koa-connect)
+- Handle express middlewares that contains `.pipe(res)`, such as `express.static` which based on [`send`](https://www.npmjs.com/package/send)
 
 ## Usage
 

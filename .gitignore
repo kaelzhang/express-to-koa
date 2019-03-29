@@ -41,6 +41,7 @@ nohup.out
 *.sublime-workspace
 nbproject
 thumbs.db
+no-track.js
 
 # Folders to ignore
 .hg

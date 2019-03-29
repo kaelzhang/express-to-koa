@@ -1,6 +1,11 @@
-const supertest = require('supertest')
 const log = require('util').debuglog('express-to-koa')
+const path = require('path')
+const supertest = require('supertest')
+const send = require('send')
+
 const {CONTEXT} = require('../src')
+
+const fixture = (...args) => path.join(__dirname, 'fixtures', ...args)
 
 const wrapKoa = c => {
   c.koa = true
@@ -62,11 +67,18 @@ const ROUTES = [
     }]
   ),
 
+  ['get', '/static', (req, res) => {
+    require('fs').createReadStream(fixture('a.js')).pipe(res)
+  }],
+
+  ['get', '/send', (req, res) => {
+    send(req, fixture('a.js')).pipe(res)
+  }],
+
   ['use',, (req, res) => {
     res.end('middleware')
   }]
 ]
-
 
 const CASES = [
   ['get', '/get', 'get'],
@@ -81,6 +93,8 @@ const CASES = [
   wrapKoa(
     ['post', '/post/en', '{"lang":"en"}', 200]
   ),
+  ['get', '/static', '// a.js\n', 200],
+  ['get', '/send', '// a.js\n', 200],
   ['put', '/not-defined', 'middleware', 200]
 ]
 
