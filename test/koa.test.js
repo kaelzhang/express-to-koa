@@ -11,7 +11,3 @@ const router = new Router()
 app.use(router.routes())
 
 run(test, 'koa', app, router, app.callback(), e2k)
-
-
-
-

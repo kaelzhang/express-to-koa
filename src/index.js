@@ -61,6 +61,8 @@ const RESPONSE_PROPERTIES = ctx => {
     },
 
     writeHead: {
+      // We allow other middlewares to modify the response object
+      writable: true,
       value (...args) {
         this[STATUS_SET_EXPLICITLY] = true
         return writeHead.apply(this, args)
@@ -68,6 +70,7 @@ const RESPONSE_PROPERTIES = ctx => {
     },
 
     end: {
+      writable: true,
       value (...args) {
         // Koa and Koa2 set the statusCode to `404` by default.
         // So we must do something as well as `ctx.body = body`.
