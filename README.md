@@ -54,6 +54,8 @@ So, it is a good practice to write framework-agnostic middlewares or libraries.
 
 ## e2k.CONTEXT
 
+Which is actually equivalent to `Symbol.for('express-to-koa:context')`
+
 ```js
 const {
   CONTEXT

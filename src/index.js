@@ -1,6 +1,6 @@
 const STATUS_SET_EXPLICITLY = Symbol('is-status-set-explicitly')
 const STATUS_CODE = Symbol('status-code')
-const CONTEXT = Symbol('koa-context')
+const CONTEXT = Symbol.for('express-to-koa:context')
 const ARGUMENTED = Symbol('argumented')
 
 const REQUEST_PROPERTIES = ctx => ({
