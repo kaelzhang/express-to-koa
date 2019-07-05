@@ -1,11 +1,11 @@
 {
   "name": "express-to-koa",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Use express middlewares in Koa2, the one that really works.",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "test": "npm run build && NODE_DEBUG=express-to-koa nyc ava --verbose --timeout=10s test/*.test.js",
+    "test": "npm run build && NODE_DEBUG=express-to-koa nyc ava --verbose --timeout=10s",
     "posttest": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "prepublishOnly": "npm run build"
   },
@@ -37,6 +37,9 @@
   "ava": {
     "require": [
       "@babel/register"
+    ],
+    "files": [
+      "test/*.test.js"
     ]
   },
   "devDependencies": {

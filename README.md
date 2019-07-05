@@ -52,26 +52,6 @@ So, it is a good practice to write framework-agnostic middlewares or libraries.
 - [next.getRequestHandler()](https://github.com/zeit/next.js/#custom-server-and-routing)
 - Other middlewares which are waiting for you to add to the README. Any contributions are welcome.
 
-## e2k.CONTEXT
-
-Which is actually equivalent to `Symbol.for('express-to-koa:context')`
-
-```js
-const {
-  CONTEXT
-} = require('express-to-koa')
-
-app.use(e2k(
-  (req, res) => {
-    // We can access koa context by
-    req[CONTEXT]
-
-    // Or
-    res[CONTEXT]
-  }
-))
-```
-
 ## License
 
 MIT

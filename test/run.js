@@ -3,8 +3,6 @@ const path = require('path')
 const supertest = require('supertest')
 const send = require('send')
 
-const {CONTEXT} = require('../src')
-
 const fixture = (...args) => path.join(__dirname, 'fixtures', ...args)
 
 const wrapKoa = c => {
@@ -61,12 +59,6 @@ const ROUTES = [
     res.end(String(res.statusCode))
   }],
 
-  wrapKoa(
-    ['post', '/post/:lang', (req, res) => {
-      res.end(JSON.stringify(req[CONTEXT].params))
-    }]
-  ),
-
   ['get', '/static', (req, res) => {
     require('fs').createReadStream(fixture('a.js')).pipe(res)
   }],
@@ -90,9 +82,6 @@ const CASES = [
   ['post', '/post5', 'Internal Server Error', 500],
   ['post', '/post6', '200', 200],
   ['post', '/post7', '201', 201],
-  wrapKoa(
-    ['post', '/post/en', '{"lang":"en"}', 200]
-  ),
   ['get', '/static', '// a.js\n', 200],
   ['get', '/send', '// a.js\n', 200],
   ['put', '/not-defined', 'middleware', 200]
@@ -150,12 +139,7 @@ module.exports = (test, prefix, app, router, callback, wrapper) => {
         t.is(text, body)
       }
 
-      if (status === code) {
-        t.pass()
-      } else {
-        log('error text: %s', text)
-        t.fail('status code not match')
-      }
+      t.is(status, code, 'status code not match')
     })
   })
 }
