@@ -56,27 +56,6 @@ const BASE_RESPONSE_PROPERTIES = {
 // after all
 // if body == null, res.end(statusToMessage(ctx.req.statusCode))
 
-// const RESPONSE_PROPERTIES = ctx => {
-//   const {
-//     res
-//   } = ctx
-
-//   const {
-//     writeHead,
-//     end,
-//     statusCode
-//   } = res
-
-//   return {
-//     ...BASE_RESPONSE_PROPERTIES,
-
-//     [STATUS_CODE]: {
-//       writable: true,
-//       value: statusCode
-//     }
-//   }
-// }
-
 // We HAVE to manipulate the vanilla OutGoing response instead of prototype,
 // otherwise, if the response is piped, the request will stuck and hang
 
